@@ -1,0 +1,42 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: ceph-osd
+  namespace: kube-csi
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ceph-osd
+    spec:
+      hostNetwork: true
+      # hostPID: true      
+      # to use e.g. Rook orchestrated cluster, and mons' FQDN is
+      # resolved through k8s service, set dns policy to cluster first
+      dnsPolicy: ClusterFirstWithHostNet      
+      containers:
+        - name: ceph-osd
+          image: ceph/daemon
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "osd"
+          env:
+            - name: OSD_FORCE_ZAP
+              value: "1"
+            - name: OSD_TYPE
+              value: directory
+          volumeMounts:
+            - name: ceph-config
+              mountPath: /etc/ceph
+            - name: ceph-worker
+              mountPath: /var/lib/ceph
+      volumes:
+        - name: ceph-config
+          hostPath:
+            path: /etc/ceph
+        - name: ceph-worker
+          hostPath:
+            path: /var/lib/ceph            
+

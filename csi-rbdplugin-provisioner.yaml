@@ -1,0 +1,125 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csi-rbdplugin-provisioner
+  namespace: kube-csi
+spec:
+  serviceName: "csi-rbdplugin-provisioner"
+  replicas: 1
+  selector:
+    matchLabels:
+     app: csi-rbdplugin-provisioner
+  template:
+    metadata:
+      labels:
+        app: csi-rbdplugin-provisioner
+    spec:
+      serviceAccount: rook-csi-rbd-provisioner-sa
+      containers:
+        - name: csi-provisioner
+          image: quay.io/k8scsi/csi-provisioner:v1.0.1
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--v=5"
+          env:
+            - name: ADDRESS
+              value: unix:///csi/csi-provisioner.sock
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: ceph-config
+              mountPath: /etc/ceph
+        - name: csi-rbdplugin-attacher
+          image: quay.io/k8scsi/csi-attacher:v1.0.1
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi-provisioner.sock
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: ceph-config
+              mountPath: /etc/ceph
+#        - name: csi-snapshotter
+#          image: quay.io/k8scsi/csi-snapshotter:v1.0.1
+#          args:
+#            - "--csi-address=$(ADDRESS)"
+#            - "--connection-timeout=15s"
+#            - "--v=5"
+#          env:
+#            - name: ADDRESS
+#              value: unix:///csi/csi-provisioner.sock
+#          imagePullPolicy: "IfNotPresent"
+#          securityContext:
+#            privileged: true
+#          volumeMounts:
+#            - name: socket-dir
+#              mountPath: /csi
+#            - name: ceph-config
+#              mountPath: /etc/ceph
+        - name: csi-rbdplugin
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_ADMIN"]
+          image: quay.io/cephcsi/rbdplugin:v1.0.0
+          args :
+            - "--nodeid=$(NODE_ID)"
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--v=5"
+            - "--drivername=rbd.csi.ceph.com"
+            - "--containerized=true"
+            - "--metadatastorage=k8s_configmap"
+          env:
+            - name: HOST_ROOTFS
+              value: "/rootfs"
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi-provisioner.sock
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - mountPath: /dev
+              name: host-dev
+            - mountPath: /rootfs
+              name: host-rootfs
+            - mountPath: /sys
+              name: host-sys
+            - mountPath: /lib/modules
+              name: lib-modules
+              readOnly: true
+            - name: ceph-config
+              mountPath: /etc/ceph
+      volumes:
+        - name: host-dev
+          hostPath:
+            path: /dev
+        - name: host-rootfs
+          hostPath:
+            path: /
+        - name: host-sys
+          hostPath:
+            path: /sys
+        - name: ceph-config
+          hostPath:
+            path: /etc/ceph
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules
+        - name: socket-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/rbd.csi.ceph.com
+            type: DirectoryOrCreate
+

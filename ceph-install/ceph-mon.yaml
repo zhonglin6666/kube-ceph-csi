@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ceph-mon
+  namespace: kube-csi
+spec:
+  selector:
+    app: ceph-mon
+  clusterIP: 10.200.254.200
+  ports:
+  - name: port6789
+    port: 6789
+    protocol: TCP
+    targetPort: 6789
+  sessionAffinity: None
+  type: ClusterIP
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: ceph-mon
+  namespace: kube-csi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ceph-mon
+    spec:
+      hostNetwork: true
+      # hostPID: true      
+      # to use e.g. Rook orchestrated cluster, and mons' FQDN is
+      # resolved through k8s service, set dns policy to cluster first
+      dnsPolicy: ClusterFirstWithHostNet      
+      containers:
+        - name: ceph-mon
+          image: ceph/daemon
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "MON"
+          env:
+            - name: MON_IP
+              value: 192.168.74.57
+            - name: CEPH_PUBLIC_NETWORK
+              value: 192.168.74.57/22
+          volumeMounts:
+            - name: ceph-config
+              mountPath: /etc/ceph
+            - name: ceph-worker
+              mountPath: /var/lib/ceph
+          livenessProbe:
+            failureThreshold: 3
+            tcpSocket:
+              port: 6789
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            tcpSocket:
+              port: 6789
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: ceph-config
+          hostPath:
+            path: /etc/ceph
+        - name: ceph-worker
+          hostPath:
+            path: /var/lib/ceph            
+

@@ -1,0 +1,37 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: ceph-mgr
+  namespace: kube-csi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ceph-mon
+    spec:
+      hostNetwork: true
+      # hostPID: true      
+      # to use e.g. Rook orchestrated cluster, and mons' FQDN is
+      # resolved through k8s service, set dns policy to cluster first
+      dnsPolicy: ClusterFirstWithHostNet      
+      containers:
+        - name: ceph-mgr
+          image: ceph/daemon
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "mgr"
+          volumeMounts:
+            - name: ceph-config
+              mountPath: /etc/ceph
+            - name: ceph-worker
+              mountPath: /var/lib/ceph
+      volumes:
+        - name: ceph-config
+          hostPath:
+            path: /etc/ceph
+        - name: ceph-worker
+          hostPath:
+            path: /var/lib/ceph            
+

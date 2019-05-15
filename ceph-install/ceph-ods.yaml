@@ -1,11 +1,10 @@
 ---
-kind: Deployment
+kind: DaemonSet
 apiVersion: extensions/v1beta1
 metadata:
   name: ceph-osd
   namespace: kube-csi
 spec:
-  replicas: 2
   template:
     metadata:
       labels:

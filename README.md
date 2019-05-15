@@ -7,12 +7,92 @@ ceph rbac
 # kubectl create -f rbac-cephfs/
 ```
 
-# 2. start ceph process
-### 2.1 
+# 2. install ceph cluster
 
-# 3. Test RBD CSI Driver
+### 2.0 prepare
+kubectl label nodes master-node ceph-mon=enabled
 
-### 3.1 set secret for RBD
+kubectl label nodes master-node ceph-mgr=enabled
+
+kubectl label nodes master-node ceph-osd=enabled
+
+kubectl label nodes node1 ceph-osd=enabled
+
+```ecma script level 4
+delete all nodes data and config
+rm /etc/ceph/* -rf
+rm /var/lib/ceph/* -rf
+```
+
+
+### 2.1 install ceph monitors
+set env `MON_IP` with node ip address
+
+set env `CEPH_PUBLIC_NETWORK` with node ip arrange
+```console
+
+kubectl apply -f ceph-install/ceph-mon.yaml
+```
+
+
+### 2.2 create osd ceph.keyring
+```cassandraql
+ceph auth get client.bootstrap-osd -o /var/lib/ceph/bootstrap-osd/ceph.keyring
+```
+
+### 2.3 transfer ceph config to other nodes
+```cassandraql
+scp -r /etc/ceph root@192.168.73.184:/etc/
+```
+
+### 2.4 transfer ceph.keyring to other nodes which need to install osd process
+```cassandraql
+scp -r /var/lib/ceph/bootstrap-osd 192.168.73.184:/var/lib/ceph/
+```
+
+### 2.5 install ceph mgr
+```cassandraql
+kubectl create -f ceph-install/ceph-mgr.yaml
+``` 
+
+### 2.6 install ceph osd
+```cassandraql
+kubectl create -f ceph-install/ceph-osd.yaml
+``` 
+
+```ecma script level 4
+[lin@lin kube-ceph-csi]$ kubectl get pods -nkube-csi -o wide
+NAME                        READY   STATUS    RESTARTS   AGE    IP               NODE          NOMINATED NODE   READINESS GATES
+ceph-mgr-7d676d95d4-cpvgr   1/1     Running   0          34s    192.168.74.57    master-node   <none>           <none>
+ceph-mon-66db844857-gt8v7   1/1     Running   0          2m6s   192.168.74.57    master-node   <none>           <none>
+ceph-osd-9hp2p              1/1     Running   0          11s    192.168.74.57    master-node   <none>           <none>
+ceph-osd-q7b9g              1/1     Running   0          11s    192.168.73.184   node1         <none>           <none>
+```
+
+# 3. install ceph csi plugin
+```ecma script level 4
+kubectl apply -f ./
+```
+
+```ecma script level 4
+[lin@lin kube-ceph-csi]$ kubectl get pods -nkube-csi
+NAME                             READY   STATUS    RESTARTS   AGE
+ceph-mgr-7d676d95d4-cpvgr        1/1     Running   0          2m38s
+ceph-mon-66db844857-gt8v7        1/1     Running   0          4m10s
+ceph-osd-9hp2p                   1/1     Running   0          2m15s
+ceph-osd-q7b9g                   1/1     Running   0          2m15s
+csi-cephfsplugin-lskft           2/2     Running   0          57s
+csi-cephfsplugin-mqrsh           2/2     Running   0          57s
+csi-cephfsplugin-provisioner-0   2/2     Running   0          57s
+csi-rbdplugin-provisioner-0      3/3     Running   0          56s
+csi-rbdplugin-srjmp              2/2     Running   0          56s
+csi-rbdplugin-tj2h4              2/2     Running   0          56s
+```
+
+
+# 4. Test RBD CSI Driver
+
+### 4.1 set secret for RBD
 Create a Secret that matches `adminid` or `userid`
 
 Then create a Secret using admin and `kubernetes` keyrings:
@@ -37,23 +117,14 @@ kubectl create -f test-csi-rbd/secret.yaml
 ```
  
 
-### 3.2 create RBD StorageClass
+### 4.2 create RBD StorageClass
 
 ```console
 kubectl create -f test-csi-rbd/storegeclass.yaml
 ```
 
-### 3.3 create pvc with storageclass
+### 4.3 create pvc with storageclass
 
 ```console
 kubectl create -f test-csi-rbd/pvc.yaml
 ```
-
-
-
-
-
-
-
-
-

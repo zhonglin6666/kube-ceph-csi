@@ -32,7 +32,9 @@ spec:
       # hostPID: true      
       # to use e.g. Rook orchestrated cluster, and mons' FQDN is
       # resolved through k8s service, set dns policy to cluster first
-      dnsPolicy: ClusterFirstWithHostNet      
+      dnsPolicy: ClusterFirstWithHostNet
+      nodeSelector:
+        ceph-mon: enabled
       containers:
         - name: ceph-mon
           image: ceph/daemon
@@ -49,22 +51,22 @@ spec:
               mountPath: /etc/ceph
             - name: ceph-worker
               mountPath: /var/lib/ceph
-          livenessProbe:
-            failureThreshold: 3
-            tcpSocket:
-              port: 6789
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-          readinessProbe:
-            failureThreshold: 3
-            tcpSocket:
-              port: 6789
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
+#          livenessProbe:
+#            failureThreshold: 3
+#            tcpSocket:
+#              port: 6789
+#            initialDelaySeconds: 60
+#            periodSeconds: 10
+#            successThreshold: 1
+#            timeoutSeconds: 1
+#          readinessProbe:
+#            failureThreshold: 3
+#            tcpSocket:
+#              port: 6789
+#            initialDelaySeconds: 60
+#            periodSeconds: 10
+#            successThreshold: 1
+#            timeoutSeconds: 1
       volumes:
         - name: ceph-config
           hostPath:

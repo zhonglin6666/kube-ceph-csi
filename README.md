@@ -69,6 +69,31 @@ ceph-osd-9hp2p              1/1     Running   0          11s    192.168.74.57   
 ceph-osd-q7b9g              1/1     Running   0          11s    192.168.73.184   node1         <none>           <none>
 ```
 
+### 2.7 create rbd pool
+```ecma script level 4
+ceph osd pool create rbd 128
+```
+
+```ecma script level 4
+[root@master plugins]# ceph -s
+  cluster:
+    id:     231afd78-7a43-4634-9ae0-7606e14a828b
+    health: HEALTH_WARN
+            Degraded data redundancy: 128 pgs undersized
+ 
+  services:
+    mon: 1 daemons, quorum master (age 9m)
+    mgr: master(active, since 7m)
+    osd: 2 osds: 2 up (since 7m), 2 in (since 7m)
+ 
+  data:
+    pools:   1 pools, 128 pgs
+    objects: 0 objects, 0 B
+    usage:   2.0 GiB used, 18 GiB / 20 GiB avail
+    pgs:     128 active+undersized
+```
+
+
 # 3. install ceph csi plugin
 ```ecma script level 4
 kubectl apply -f ./

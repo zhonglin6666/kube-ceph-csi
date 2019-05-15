@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f070bcd4-090e-40fa-9752-4c61fce9f740" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ceph-install/ceph-mgr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ceph-install/ceph-mgr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ceph-install/ceph-mon.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ceph-install/ceph-mon.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ceph-install/ceph-ods.yaml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +25,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="419">
-                <caret line="76" selection-start-line="76" selection-end-line="76" />
+              <first_editor relative-caret-position="365">
+                <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
               </first_editor>
               <second_editor />
             </state>
@@ -61,8 +58,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1920" />
-    <option name="y" value="68" />
+    <option name="x" value="2063" />
+    <option name="y" value="198" />
     <option name="width" value="1725" />
     <option name="height" value="938" />
   </component>
@@ -91,6 +88,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
@@ -117,7 +115,7 @@
     </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="68" width="1725" height="938" extended-state="0" />
+    <frame x="2063" y="198" width="1725" height="938" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18746269" />
@@ -184,8 +182,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="419">
-            <caret line="76" selection-start-line="76" selection-end-line="76" />
+          <first_editor relative-caret-position="365">
+            <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
           </first_editor>
           <second_editor />
         </state>

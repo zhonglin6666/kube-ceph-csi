@@ -94,21 +94,14 @@ ceph osd pool create rbd 128
 ```
 
 
-# 3. install ceph csi plugin
+# 3. install ceph rbd csi plugin
 ```ecma script level 4
-kubectl apply -f ./
+kubectl apply -f ./rbd
 ```
 
 ```ecma script level 4
 [lin@lin kube-ceph-csi]$ kubectl get pods -nkube-csi
 NAME                             READY   STATUS    RESTARTS   AGE
-ceph-mgr-7d676d95d4-cpvgr        1/1     Running   0          2m38s
-ceph-mon-66db844857-gt8v7        1/1     Running   0          4m10s
-ceph-osd-9hp2p                   1/1     Running   0          2m15s
-ceph-osd-q7b9g                   1/1     Running   0          2m15s
-csi-cephfsplugin-lskft           2/2     Running   0          57s
-csi-cephfsplugin-mqrsh           2/2     Running   0          57s
-csi-cephfsplugin-provisioner-0   2/2     Running   0          57s
 csi-rbdplugin-provisioner-0      3/3     Running   0          56s
 csi-rbdplugin-srjmp              2/2     Running   0          56s
 csi-rbdplugin-tj2h4              2/2     Running   0          56s

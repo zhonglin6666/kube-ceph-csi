@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f070bcd4-090e-40fa-9752-4c61fce9f740" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csi-rbdplugin-provisioner.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/csi-rbdplugin-provisioner.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csi-rbdplugin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/csi-rbdplugin.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-csi-rbd/secret.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/test-csi-rbd/secret.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,22 +16,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/csi-rbdplugin.yaml">
+        <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-nodeplugin-rbac.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+            <state relative-caret-position="684">
+              <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="365">
-                <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-provisioner-rbac.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="41" column="45" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -57,18 +57,17 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="2063" />
-    <option name="y" value="198" />
-    <option name="width" value="1725" />
-    <option name="height" value="938" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1990" />
+    <option name="y" value="109" />
+    <option name="width" value="1715" />
+    <option name="height" value="945" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -85,6 +84,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -93,7 +93,7 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/rbac-rbd" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -115,10 +115,10 @@
     </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2063" y="198" width="1725" height="938" extended-state="0" />
+    <frame x="1990" y="109" width="1715" height="945" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18746269" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1933934" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -151,24 +151,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-rbd-rbac.yaml" />
-    <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-nodeplugin-rbac.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-provisioner-rbac.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/csi-rbdplugin-provisioner.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-796">
           <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="311">
+            <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -179,13 +175,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="365">
-            <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-nodeplugin-rbac.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rbac-rbd/csi-provisioner-rbac.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="41" column="45" lean-forward="true" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
         </state>
       </provider>
     </entry>
